@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Posting Application</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <img src="logo.png" alt="Job Posting Application Logo" />
+    </div>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/job-postings">Job Postings</a></li>
+            <li><a href="/applications">Manage Applications</a></li>
+            <li><a href="/profile">Profile</a></li>
+            <li><a href="/admin-dashboard">Admin Dashboard</a></li> <!-- For Admin Only -->
+            <li><a href="/logout">Logout</a></li>
+        </ul>
+    </nav>
+    <div class="search-bar">
+        <input type="text" placeholder="Search job postings or candidates..." />
+    </div>
+</header>
+
+<main>
+    <section class="main-banner">
+        <h1>Welcome, [Employer Name]!</h1>
+        <p>Your platform for posting and managing job listings.</p>
+        <button onclick="window.location.href='/job-postings'">Post a New Job</button>
+    </section>
+
+    <section class="overview">
+        <h2>Your Active Job Listings</h2>
+        <p>You have [X] active listings.</p>
+        <button onclick="window.location.href='/manage-applications'">Manage Applications</button>
+    </section>
+
+    <section class="featured-listings">
+        <h2>Featured Job Listings</h2>
+        <div class="listing">
+            <p><strong>Job Title:</strong> [Job Title]</p>
+            <button onclick="window.location.href='/job-postings/[job-id]'">View Listing</button>
+        </div>
+        <!-- Add more job listings here -->
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2025 Job Posting Application | <a href="/terms">Terms of Service</a> | <a href="/privacy">Privacy Policy</a></p>
+</footer>
+
+</body>
+</html>
