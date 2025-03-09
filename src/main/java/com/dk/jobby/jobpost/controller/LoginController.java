@@ -1,35 +1,64 @@
 package com.dk.jobby.jobpost.controller;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import com.dk.jobby.jobpost.domain.Login;
-import com.dk.jobby.jobpost.service.LoginService;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.dk.jobby.jobpost.domain.User;
+import com.dk.jobby.jobpost.service.UserService;
 
 @Controller
 public class LoginController {
 
     @Autowired
-    private LoginService service;
+    private UserService userService;
 
+    // Show login/register page
     @GetMapping("/")
-    public String showLoginPage() {
+    public String showLoginPage(@RequestParam(name = "success", required = false) String success, Model model) {
+        if (success != null) {
+            model.addAttribute("success", success);
+        }
         return "login";
     }
 
+    // Process login
     @PostMapping("/login")
     public String processLogin(@RequestParam String username, @RequestParam String password, Model model) {
-        Login user = service.log(username, password);
+        User user = userService.authenticate(username, password);
 
         if (user != null) {
-            return "redirect:/welcome";
+            return "redirect:/home"; // Redirect to home after login
         } else {
             model.addAttribute("error", "Invalid username or password");
-            return "redirect:/login";
+            return "login";
         }
+    }
+
+    // Show home page
+    @GetMapping("/home")
+    public String showHomePage() {
+        return "home";
+    }
+
+    // Show register form (on same login page)
+    @PostMapping("/register")
+    public String processRegister(@RequestParam String username, 
+                                  @RequestParam String password, 
+                                  @RequestParam String email, 
+                                  Model model) {
+        User existingUser = userService.findByUsername(username);
+        if (existingUser != null) {
+            model.addAttribute("error", "Username already exists!");
+            return "login";
+        }
+
+        User newUser = new User(username, password, email);
+        userService.saveUser(newUser);
+
+        return "redirect:/?success=Registration successful! Please log in.";
     }
 }
