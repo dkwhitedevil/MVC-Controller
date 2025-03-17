@@ -18,25 +18,30 @@ public class LoginController {
 
     // Show login/register page
     @GetMapping("/")
-    public String showLoginPage(@RequestParam(name = "success", required = false) String success, Model model) {
+    public String showLoginPage(@RequestParam(name = "success", required = false) String success,
+                                @RequestParam(name = "error", required = false) String error,
+                                Model model) {
         if (success != null) {
             model.addAttribute("success", success);
+        }
+        if (error != null) {
+            model.addAttribute("error", error);
         }
         return "login";
     }
 
     // Process login
     @PostMapping("/login")
-    public String processLogin(@RequestParam String username, @RequestParam String password, Model model) {
-        User user = userService.authenticate(username, password);
+public String processLogin(@RequestParam String username, @RequestParam String password, Model model) {
+    User user = userService.authenticate(username, password);
 
-        if (user != null) {
-            return "redirect:/home"; // Redirect to home after login
-        } else {
-            model.addAttribute("error", "Invalid username or password");
-            return "login";
-        }
+    if (user != null) {
+        return "redirect:/home"; // Redirect to home if login is successful
+    } else {
+        return "redirect:/?error=Invalid username or password"; // Redirect with an error message
     }
+}
+
 
     // Show home page
     @GetMapping("/home")

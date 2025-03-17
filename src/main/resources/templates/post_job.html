@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Post a Job</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Post a Job</h2>
+        <form action="/job-postings/post" method="post" onsubmit="return validateForm()">
+            <input type="text" name="title" id="title" placeholder="Job Title" required>
+            <textarea name="description" id="description" placeholder="Job Description" required></textarea>
+            <input type="text" name="salary" id="salary" placeholder="Salary" required>
+            <input type="text" name="requirements" id="requirements" placeholder="Requirements" required>
+            <input type="text" name="location" id="location" placeholder="Location" required>
+            <select name="jobType" id="jobType" required>
+                <option value="Full-time">Full-time</option>
+                <option value="Part-time">Part-time</option>
+            </select>
+            <button type="submit">Post Job</button>
+        </form>
+        <a href="/job-postings/list" class="btn">View My Jobs</a>
+    </div>
+
+    <script src="/js/script.js"></script>
+</body>
+</html>

@@ -123,16 +123,6 @@
             to { transform: translateX(0); opacity: 1; }
         }
     </style>
-    <script>
-        function showRegister() {
-            document.getElementById('login-form').classList.add('hidden');
-            document.getElementById('register-form').classList.remove('hidden');
-        }
-        function showLogin() {
-            document.getElementById('register-form').classList.add('hidden');
-            document.getElementById('login-form').classList.remove('hidden');
-        }
-    </script>
 </head>
 <body>
     <div class="container">
@@ -140,6 +130,10 @@
             <!-- Background Image Panel -->
         </div>
         <div class="right-panel">
+            <!-- Success message (shown after successful registration) -->
+           
+
+            <!-- Login Form -->
             <div id="login-form">
                 <h2>Login</h2>
                 <form action="/login" method="post">
@@ -148,7 +142,11 @@
                     <button type="submit">Login</button>
                 </form>
                 <p>Don't have an account? <a href="#" onclick="showRegister()">Register</a></p>
+                <p id="error-message" style="color: red; display: none; margin-top: 10px;"></p>
+                <p id="success-message" style="color: green; display: none;"></p>
             </div>
+
+            <!-- Registration Form -->
             <div id="register-form" class="hidden">
                 <h2>Create an Account</h2>
                 <form action="/register" method="post">
@@ -161,5 +159,43 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function showRegister() {
+            document.getElementById('login-form').classList.add('hidden');
+            document.getElementById('register-form').classList.remove('hidden');
+        }
+
+        function showLogin() {
+            document.getElementById('register-form').classList.add('hidden');
+            document.getElementById('login-form').classList.remove('hidden');
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const params = new URLSearchParams(window.location.search);
+            const errorMessage = params.get("error");
+            const successMessage = params.get("success");
+
+            // Show error message below login button
+            if (errorMessage) {
+                const errorElement = document.getElementById("error-message");
+                errorElement.textContent = errorMessage;
+                errorElement.style.display = "block";
+            }
+
+            // Show success message after registration
+            if (successMessage) {
+                const successElement = document.getElementById("success-message");
+                successElement.textContent = successMessage;
+                successElement.style.display = "block";
+            }
+
+            // Remove query parameters from URL after displaying messages
+            if (errorMessage || successMessage) {
+                const newUrl = window.location.origin + window.location.pathname;
+                window.history.replaceState({}, document.title, newUrl);
+            }
+        });
+    </script>
 </body>
 </html>
