@@ -27,4 +27,30 @@ public class UserService {
     public void saveUser(User user) {
         userRepository.save(user);
     }
+
+    public boolean updateUserProfile(User user) {
+        try {
+            User existingUser = userRepository.findById(user.getId()).orElse(null);
+            if (existingUser != null) {
+                existingUser.setEmail(user.getEmail());
+                existingUser.setUsername(user.getUsername());
+                existingUser.setPassword(user.getPassword());
+                userRepository.save(existingUser);
+                return true;
+            }
+        } catch (Exception e) {
+            // Log the exception
+        }
+        return false;
+    }
+
+    public User getLoggedInUser() {
+        // Replace with actual logic to fetch the logged-in user
+        return userRepository.findByUsername("loggedInUsername"); 
+    }
+
+    public void updateUser(User user) {
+        // Update the user in the database
+        userRepository.save(user);
+    }
 }

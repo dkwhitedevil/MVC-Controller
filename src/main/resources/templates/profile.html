@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Profile</title>
+</head>
+<body>
+    <h1>Update Profile</h1>
+    <form action="/profile" method="post">
+        <label>Username:</label>
+        <input type="text" name="username" value="${loggedInUser.username}" required><br>
+        <label>Email:</label>
+        <input type="email" name="email" value="${loggedInUser.email}" required><br>
+        <label>Company Name:</label>
+        <input type="text" name="companyName" value="${user.companyName}"><br>
+        <label>Contact Number:</label>
+        <input type="text" name="contactNumber" value="${user.contactNumber}"><br>
+        <button type="submit">Save Changes</button>
+    </form>
+    <p style="color: green;">${success}</p>
+    <p style="color: red;">${error}</p>
+</body>
+</html>
