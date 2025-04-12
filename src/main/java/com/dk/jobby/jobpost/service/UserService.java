@@ -34,7 +34,8 @@ public class UserService {
             if (existingUser != null) {
                 existingUser.setEmail(user.getEmail());
                 existingUser.setUsername(user.getUsername());
-                existingUser.setPassword(user.getPassword());
+                existingUser.setCompanyName(user.getCompanyName());
+                existingUser.setContactNumber(user.getContactNumber());
                 userRepository.save(existingUser);
                 return true;
             }

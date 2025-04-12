@@ -1,22 +1,88 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Profile</title>
 </head>
 <body>
-    <h1>Update Profile</h1>
-    <form action="/profile" method="post">
-        <label>Username:</label>
-        <input type="text" name="username" value="${loggedInUser.username}" required><br>
-        <label>Email:</label>
-        <input type="email" name="email" value="${loggedInUser.email}" required><br>
-        <label>Company Name:</label>
-        <input type="text" name="companyName" value="${user.companyName}"><br>
-        <label>Contact Number:</label>
-        <input type="text" name="contactNumber" value="${user.contactNumber}"><br>
-        <button type="submit">Save Changes</button>
+    <h2>User Profile</h2>
+    <!-- Display updated profile details -->
+    <div th:if="${showDetails}">
+        <p><strong>Full Name:</strong> <span th:text="${profile.fullName}">N/A</span></p>
+        <p><strong>Phone Number:</strong> <span th:text="${profile.phoneNumber}">N/A</span></p>
+        <p><strong>Date of Birth:</strong> <span th:text="${profile.dateOfBirth}">N/A</span></p>
+        <p><strong>Gender:</strong> <span th:text="${profile.gender}">N/A</span></p>
+        <p><strong>Country:</strong> <span th:text="${profile.country}">N/A</span></p>
+        <p><strong>State:</strong> <span th:text="${profile.state}">N/A</span></p>
+        <p><strong>City:</strong> <span th:text="${profile.city}">N/A</span></p>
+        <p><strong>Preferred Language:</strong> <span th:text="${profile.preferredLanguage}">N/A</span></p>
+        <p><strong>Hobbies:</strong> <span th:text="${profile.hobbies}">N/A</span></p>
+        <p><strong>Skills:</strong> <span th:text="${profile.skills}">N/A</span></p>
+        <p><strong>Current Job Title:</strong> <span th:text="${profile.currentJobTitle}">N/A</span></p>
+        <p><strong>Years of Experience:</strong> <span th:text="${profile.yearsOfExperience}">0</span></p>
+    </div>
+    <hr>
+    <!-- Form to update profile -->
+    <form action="/profiles/update" method="post">
+        <div>
+            <label for="fullName"><strong>Full Name:</strong></label>
+            <input type="text" id="fullName" name="fullName" th:value="${profile.fullName}" required>
+        </div>
+        <div>
+            <label for="phoneNumber"><strong>Phone Number:</strong></label>
+            <input type="text" id="phoneNumber" name="phoneNumber" th:value="${profile.phoneNumber}" required>
+        </div>
+        <div>
+            <label for="dateOfBirth"><strong>Date of Birth:</strong></label>
+            <input type="date" id="dateOfBirth" name="dateOfBirth" th:value="${profile.dateOfBirth}" required>
+        </div>
+        <div>
+            <label for="gender"><strong>Gender:</strong></label>
+            <select id="gender" name="gender" th:value="${profile.gender}">
+                <option value="Male" th:selected="${profile.gender == 'Male'}">Male</option>
+                <option value="Female" th:selected="${profile.gender == 'Female'}">Female</option>
+                <option value="Other" th:selected="${profile.gender == 'Other'}">Other</option>
+            </select>
+        </div>
+        <div>
+            <label for="country"><strong>Country:</strong></label>
+            <input type="text" id="country" name="country" th:value="${profile.country}" required>
+        </div>
+        <div>
+            <label for="state"><strong>State:</strong></label>
+            <input type="text" id="state" name="state" th:value="${profile.state}" required>
+        </div>
+        <div>
+            <label for="city"><strong>City:</strong></label>
+            <input type="text" id="city" name="city" th:value="${profile.city}" required>
+        </div>
+        <div>
+            <label for="preferredLanguage"><strong>Preferred Language:</strong></label>
+            <input type="text" id="preferredLanguage" name="preferredLanguage" th:value="${profile.preferredLanguage}" required>
+        </div>
+        <div>
+            <label for="hobbies"><strong>Hobbies:</strong></label>
+            <input type="text" id="hobbies" name="hobbies" th:value="${profile.hobbies}">
+        </div>
+        <div>
+            <label for="skills"><strong>Skills:</strong></label>
+            <input type="text" id="skills" name="skills" th:value="${profile.skills}">
+        </div>
+        <div>
+            <label for="currentJobTitle"><strong>Current Job Title:</strong></label>
+            <input type="text" id="currentJobTitle" name="currentJobTitle" th:value="${profile.currentJobTitle}">
+        </div>
+        <div>
+            <label for="yearsOfExperience"><strong>Years of Experience:</strong></label>
+            <input type="number" id="yearsOfExperience" name="yearsOfExperience" th:value="${profile.yearsOfExperience}" min="0">
+        </div>
+        <div>
+            <button type="submit">Update Profile</button>
+        </div>
     </form>
-    <p style="color: green;">${success}</p>
-    <p style="color: red;">${error}</p>
+    <form action="/profiles/show" method="get">
+        <div>
+            <button type="submit">Show Profile Details</button>
+        </div>
+    </form>
 </body>
 </html>

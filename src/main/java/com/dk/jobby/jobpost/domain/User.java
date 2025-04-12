@@ -1,9 +1,11 @@
 package com.dk.jobby.jobpost.domain;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -20,6 +22,9 @@ public class User {
     private String companyName;
     private String contactNumber;
     private String name;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Profile profile;
 
     public User() {}
 
@@ -84,5 +89,14 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Profile getProfile() {
+        return profile;
+    }
+
+    public void setProfile(Profile profile) {
+        this.profile = profile;
+        profile.setUser(this); // Ensure bidirectional consistency
     }
 }
