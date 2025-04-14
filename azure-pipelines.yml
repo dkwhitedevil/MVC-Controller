@@ -4,10 +4,10 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/java
 
 trigger:
-- master
+- branch1
 
 pool:
-  name: 'Jobby'
+  name: 'Jobsy'
 
 steps:
 - task: Maven@3
